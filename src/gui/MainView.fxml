@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <content>
-      <VBox prefHeight="314.0" prefWidth="439.0">
+      <VBox prefHeight="386.0" prefWidth="594.0">
          <children>
             <MenuBar>
               <menus>
@@ -25,6 +28,14 @@
                 </Menu>
               </menus>
             </MenuBar>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bem-Vind@s&#10;&#10;Análise e Desenvolvimento de Sistemas&#10;POO Java&#10;&#10;Cadastro de Funcionários e Departamentos&#10;" textAlignment="CENTER" wrappingWidth="556.05859375">
+               <VBox.margin>
+                  <Insets left="20.0" top="50.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
          </children>
       </VBox>
    </content>
