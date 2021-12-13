@@ -55,7 +55,7 @@ public class DepartmentFormController implements Initializable{
 		this.service = service;
 	}
 	
-	//escrever na lista e atualizar a liista
+	//escrever na lista e atualizar a lista
 	public void subscribeDataChangeListener(DataChangeListener listener) {
 		dataChangeListeners.add(listener);
 	}
@@ -106,7 +106,7 @@ public class DepartmentFormController implements Initializable{
 		}
 		obj.setName(txtName.getText());
 		
-		//se a coleção de errors tiver pelo menos 1 error, sera lançado uma exceção
+		//se a coleção de errors tiver pelo menos 1 error, sera lançado uma exception
 		if(exception.getErrors().size() > 0) {
 			throw exception;
 		}

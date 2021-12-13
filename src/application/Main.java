@@ -24,7 +24,7 @@ public class Main extends Application {
 			
 			mainScene = new Scene(scrollpane);
 			primaryStage.setScene(mainScene);
-			primaryStage.setTitle("Sample JavaFX application");
+			primaryStage.setTitle("Aplicação prova AV3 POO");
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
