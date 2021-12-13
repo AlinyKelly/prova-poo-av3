@@ -23,16 +23,16 @@ public class DepartmentListController implements Initializable{
 	
 	//Referencias para a tela do departamento
 	@FXML
-	private TableView<Department> tableViewDepartamento;
+	private TableView<Department> tableViewDepartment;
 	
 	@FXML
 	private TableColumn<Department, Integer> tableColumnId;
 	
 	@FXML
-	private TableColumn<Department, String> tableColumnNome;
+	private TableColumn<Department, String> tableColumnName;
 	
 	@FXML
-	private Button btNovo;
+	private Button btNew;
 	
 	private ObservableList<Department> obsList;
 	
@@ -55,11 +55,11 @@ public class DepartmentListController implements Initializable{
 	private void initializeNodes() {
 		// inicia o comportamento das colunas da tabela
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		tableColumnNome.setCellValueFactory(new PropertyValueFactory<>("name"));
+		tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		
 		//table acompanhar a altura da janela
 		Stage stage = (Stage) Main.getMainScene().getWindow();
-		tableViewDepartamento.prefHeightProperty().bind(stage.heightProperty());
+		tableViewDepartment.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
 	public void updateTableView() {
@@ -68,7 +68,7 @@ public class DepartmentListController implements Initializable{
 		}
 		List<Department> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list); //instacia o observable list na lista de departamentos
-		tableViewDepartamento.setItems(obsList);
+		tableViewDepartment.setItems(obsList);
 	}
 
 }

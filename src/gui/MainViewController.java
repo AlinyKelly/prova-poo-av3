@@ -22,24 +22,24 @@ public class MainViewController implements Initializable{
 	
 	//Atributos dos itens do Menu
 	@FXML
-	private MenuItem menuItemVendedores;
+	private MenuItem menuItemSellers;
 	
 	@FXML
-	private MenuItem menuItemDepartamento;
+	private MenuItem menuItemDepartment;
 	
 	@FXML
-	private MenuItem menuItemSobre;
+	private MenuItem menuItemAbout;
 	
 	
 	// Metodos para tratar os eventos do Menu
 	@FXML
-	public void onMenuItemVendedoresAction() {
-		System.out.println("onMenuItemVendedoresAction");
+	public void onMenuItemSellersAction() {
+		System.out.println("onMenuItemSellersAction");
 	}
 	
 	@FXML
-	public void onMenuItemDepartamentoAction() {
-		//loadView("/gui/DepartmentList.fxml");
+	public void onMenuItemDepartmentAction() {
+		
 		loadView("/gui/DepartmentList.fxml", (DepartmentListController controller) -> {
 			controller.setDepartmentService(new DepartmentService());
 			controller.updateTableView();
@@ -47,8 +47,8 @@ public class MainViewController implements Initializable{
 	}
 	
 	@FXML
-	public void onMenuItemSobreAction() {
-		loadView("/gui/Sobre.fxml", x -> {}); //a tela não faz nenhuma ação
+	public void onMenuItemAboutAction() {
+		loadView("/gui/About.fxml", x -> {}); //a tela não faz nenhuma ação
 	}
 	
 	
