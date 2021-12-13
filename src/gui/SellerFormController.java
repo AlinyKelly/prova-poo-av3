@@ -1,9 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -59,6 +61,9 @@ public class SellerFormController implements Initializable {
 
 	@FXML
 	private TextField txtBaseSalary;
+	
+	@FXML
+	private TextField txtNumberDependents;
 
 	@FXML
 	private ComboBox<Department> comboBoxDepartment;
@@ -74,6 +79,9 @@ public class SellerFormController implements Initializable {
 
 	@FXML
 	private Label labelErrorBaseSalary;
+	
+	@FXML
+	private Label labelErrorNumberDependents;
 
 	@FXML
 	private Button btSave;
@@ -107,8 +115,9 @@ public class SellerFormController implements Initializable {
 			throw new IllegalStateException("Service was null");
 		}
 		try {
+			// salva no banco de dados
 			entity = getFormData();
-			service.saveOrUpdate(entity);// salva no banco de dados
+			service.saveOrUpdate(entity);
 			notifyDataChangeListeners();
 			// fechar a janela
 			Utils.currentStage(event).close();
@@ -136,11 +145,42 @@ public class SellerFormController implements Initializable {
 
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
 
+		//Nome
 		if (txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addError("name", "Campo não pode ser vazio");
 		}
 		obj.setName(txtName.getText());
+		
+		//Email
+		if (txtEmail.getText() == null || txtEmail.getText().trim().equals("")) {
+			exception.addError("email", "Campo não pode ser vazio");
+		}
+		obj.setEmail(txtEmail.getText());
+		
+		//Data de aniversário
+		if (dpBirthDate.getValue() == null) {
+			exception.addError("birthDate", "Campo não pode ser vazio");
+		}
+		else {
+			Instant instant = Instant.from(dpBirthDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+			obj.setBirthDate(Date.from(instant));
+		}
+		
+		//Salario
+		if (txtBaseSalary.getText() == null || txtBaseSalary.getText().trim().equals("")) {
+			exception.addError("baseSalary", "Campo não pode ser vazio");
+		}
+		obj.setBaseSalary(Utils.tryParseToDouble(txtBaseSalary.getText()));
 
+		//Departamento
+		obj.setDepartment(comboBoxDepartment.getValue());
+		
+		//Dependentes
+				if (txtNumberDependents.getText() == null || txtNumberDependents.getText().trim().equals("")) {
+					exception.addError("numberDependents", "Campo não pode ser vazio");
+				}
+				obj.setNumberDependents(Utils.tryParseToInt(txtNumberDependents.getText()));
+				
 		// se a coleção de errors tiver pelo menos 1 error, sera lançado uma exceção
 		if (exception.getErrors().size() > 0) {
 			throw exception;
@@ -166,9 +206,11 @@ public class SellerFormController implements Initializable {
 		Constraints.setTextFieldMaxLength(txtName, 70);
 		Constraints.setTextFieldDouble(txtBaseSalary);
 		Constraints.setTextFieldMaxLength(txtEmail, 60);
-		Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
+		Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");		
 		
 		initializeComboBoxDepartment();
+		
+		Constraints.setTextFieldInteger(txtNumberDependents);
 	}
 
 	public void updateFormData() {
@@ -180,6 +222,7 @@ public class SellerFormController implements Initializable {
 		txtEmail.setText(entity.getEmail());
 		Locale.setDefault(Locale.US);
 		txtBaseSalary.setText(String.format("%.2f", entity.getBaseSalary()));
+		
 		if (entity.getBirthDate() != null) {
 			dpBirthDate.setValue(LocalDate.ofInstant(entity.getBirthDate().toInstant(), ZoneId.systemDefault()));
 		}
@@ -190,6 +233,8 @@ public class SellerFormController implements Initializable {
 		else {
 			comboBoxDepartment.setValue(entity.getDepartment());
 		}
+		
+		txtNumberDependents.setText(String.valueOf(entity.getNumberDependents()));
 	}
 
 	// carrega a lista do departamentos
@@ -205,10 +250,21 @@ public class SellerFormController implements Initializable {
 	// setar a mensagem de erro no campo labelErrorName
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
-
-		if (fields.contains("name")) {
-			labelErrorName.setText(errors.get("name"));
-		}
+		//utilizando operador ternario
+		//name
+		labelErrorName.setText((fields.contains("name") ? errors.get("name") : ""));
+		
+		//email
+		labelErrorEmail.setText((fields.contains("email") ? errors.get("email") : ""));
+				
+		//base salary
+		labelErrorBaseSalary.setText((fields.contains("baseSalary") ? errors.get("baseSalary") : ""));
+		
+		//data de aniversaRio
+		labelErrorBirthDate.setText((fields.contains("birthDate") ? errors.get("birthDate") : ""));
+		
+		//departamento
+		labelErrorNumberDependents.setText((fields.contains("numberDependents") ? errors.get("numberDependents") : ""));
 	}
 
 	//initializeComboBoxDepartment

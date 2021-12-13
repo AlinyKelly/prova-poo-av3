@@ -21,9 +21,19 @@ public class Utils {
 		return (Stage) ((Node) event.getSource()).getScene().getWindow();
 	}
 
+	//converter string para inteiro
 	public static Integer tryParseToInt(String str) {
 		try {
 			return Integer.parseInt(str);
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
+	
+	//converter string para double
+	public static Double tryParseToDouble(String str) {
+		try {
+			return Double.parseDouble(str);
 		} catch (NumberFormatException e) {
 			return null;
 		}

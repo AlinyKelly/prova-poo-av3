@@ -12,6 +12,7 @@ public class Seller implements Serializable {
 	private String email;
 	private Date birthDate;
 	private Double baseSalary;
+	private Integer numberDependents;
 	
 	private Department department;
 	
@@ -25,6 +26,7 @@ public class Seller implements Serializable {
 		this.birthDate = birthDate;
 		this.baseSalary = baseSalary;
 		this.department = department;
+		this.numberDependents = numberDependents;
 	}
 
 	public Integer getId() {
@@ -74,6 +76,15 @@ public class Seller implements Serializable {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+	
+	public Integer getNumberDependents() {
+		return numberDependents;
+	}
+	
+	public void setNumberDependents(Integer numberDependents) {
+		this.numberDependents = numberDependents;
+	}
+	
 
 	@Override
 	public int hashCode() {
@@ -103,6 +114,6 @@ public class Seller implements Serializable {
 	@Override
 	public String toString() {
 		return "Seller [id=" + id + ", name=" + name + ", email=" + email + ", birthDate=" + birthDate + ", baseSalary="
-				+ baseSalary + ", department=" + department + "]";
+				+ baseSalary + ", department=" + department + ", numberDependents=" + numberDependents + "]";
 	}
 }
