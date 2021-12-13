@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,9 +15,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entities.Department;
+import model.services.DepartmentService;
 
 public class DepartmentListController implements Initializable{
 	
+	private DepartmentService service;
 	
 	//Referencias para a tela do departamento
 	@FXML
@@ -29,10 +34,16 @@ public class DepartmentListController implements Initializable{
 	@FXML
 	private Button btNovo;
 	
+	private ObservableList<Department> obsList;
+	
 	//Tratamento do botão btNovo
 	@FXML
 	public void onBtNewAction() {
 		System.out.println("onBtNewAction");
+	}
+	
+	public void setDepartmentService(DepartmentService service) {
+		this.service = service;
 	}
 
 	@Override
@@ -49,6 +60,15 @@ public class DepartmentListController implements Initializable{
 		//table acompanhar a altura da janela
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewDepartamento.prefHeightProperty().bind(stage.heightProperty());
+	}
+	
+	public void updateTableView() {
+		if(service == null) {
+			throw new IllegalStateException("Service was null");
+		}
+		List<Department> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list); //instacia o observable list na lista de departamentos
+		tableViewDepartamento.setItems(obsList);
 	}
 
 }
